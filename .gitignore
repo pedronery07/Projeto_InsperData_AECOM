@@ -1,6 +1,5 @@
 env/*
 .env
-*.xlsx
 Modelfile
 settings.py
 *.pyc
