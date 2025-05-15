@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_4922f35c802ff1379319e64751ee856e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_4922f35c802ff1379319e64751ee856e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_4922f35c802ff1379319e64751ee856e = L.map(
+                "map_4922f35c802ff1379319e64751ee856e",
+                {
+                    center: [-12.457724291919192, -50.61551665707072],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 5,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_33eba481ba86fc8e958a3d9553f861e3 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_33eba481ba86fc8e958a3d9553f861e3.addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var marker_e70ff4649f5400fd7fb3488fe8febbf9 = L.marker(
+                [-5.804618, -61.289483],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_8ed6e2b6ae9b8d2713d8740a792f8a7f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_e70ff4649f5400fd7fb3488fe8febbf9.setIcon(icon_8ed6e2b6ae9b8d2713d8740a792f8a7f);
+        
+    
+        var popup_b37ca74520abd4d0c9fc7e4a5c023f73 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_0a15c448a26cf1dc5f93d73141147588 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDA2MDAzNTctODkuMjAyMS44LjA0LjU2MDA8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hbmljb3LDqSAtIEFNIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBERVNUQVFVRSBJTkRVU1RSSUEgRSBDT01FUkNJTyBERSBNQURFSVJBUyBMVERBPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gRGVzbWF0YW1lbnRvPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBEZXDDs3NpdG8gaXJyZWd1bGFyIGRlIDI4OCwwMyBtZXRyb3MgY8O6Ymljb3MgZGUgbWFkZWlyYSBlbSB0b3JhIHNlbSBsaWNlbsOnYSB2w6FsaWRhLCBjb25zdGF0YWRvIGVtIDMwLzA0LzIwMTYuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gMzAvMDQvMjAxNjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_b37ca74520abd4d0c9fc7e4a5c023f73.setContent(i_frame_0a15c448a26cf1dc5f93d73141147588);
+            
+        
+
+        marker_e70ff4649f5400fd7fb3488fe8febbf9.bindPopup(popup_b37ca74520abd4d0c9fc7e4a5c023f73)
+        ;
+
+        
+    
+    
+            marker_e70ff4649f5400fd7fb3488fe8febbf9.bindTooltip(
+                `<div>
+                     Desmatamento em Manicoré (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4f53c7efff78993d0bce834744dd7732 = L.marker(
+                [-7.719722222222222, -61.469722222222224],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_b780bcc8a20f1aa329e4a02d89154fae = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "pushpin", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_4f53c7efff78993d0bce834744dd7732.setIcon(icon_b780bcc8a20f1aa329e4a02d89154fae);
+        
+    
+        var popup_1d6830646e91031c1b54da981c1668af = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_65129cfecfdac27c28744fce5da347e3 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDA2MDAzODQtNzIuMjAyMS44LjA0LjU2MDA8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hbmljb3LDqSAtIEFNIDxpPihQcmVjaXNhIChPcmlnaW5hbCkpPC9pPjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5SZXNwb25zw6F2ZWw6PC9zdHJvbmc+IENBUkxPUyBBTEVYQU5EUkUgUk9TU0k8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VGlwbyBkZSBJbXBhY3RvOjwvc3Ryb25nPiBEZXNtYXRhbWVudG8gZGUgQVBQPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBEZXN0cnVpw6fDo28gZGUgMTIxLDE1IGhlY3RhcmVzIGRlIGZsb3Jlc3RhIG5hdGl2YSBuYSBBbWF6w7RuaWEgc2VtIGF1dG9yaXphw6fDo28sIGVtYmFyZ2FuZG8gYSDDoXJlYSBwYXJhIGV2aXRhciB1c28gY29tIGJvdmlub3MgZSBidXNjYW5kbyByZWdlbmVyYcOnw6NvIG5hdHVyYWwuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gMTYvMDYvMjAxNjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiAxMjExNTAwLjAgbTI8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_1d6830646e91031c1b54da981c1668af.setContent(i_frame_65129cfecfdac27c28744fce5da347e3);
+            
+        
+
+        marker_4f53c7efff78993d0bce834744dd7732.bindPopup(popup_1d6830646e91031c1b54da981c1668af)
+        ;
+
+        
+    
+    
+            marker_4f53c7efff78993d0bce834744dd7732.bindTooltip(
+                `<div>
+                     Desmatamento de APP em Manicoré (Precisa (Original))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_99ca457f9d11da393b81af6e8144ae36 = L.marker(
+                [-5.804618, -61.289483],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_6d3923428e753772a11d8517d1d33726 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_99ca457f9d11da393b81af6e8144ae36.setIcon(icon_6d3923428e753772a11d8517d1d33726);
+        
+    
+        var popup_3d6ab60b59cb903d9c7f96e41449bec4 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_518f13529c9ab1b431469a8881cf6f2d = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDA2MDA1OTItMjIuMjAyMi44LjA0LjU2MDA8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hbmljb3LDqSAtIEFNIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBDIFIgTUFERUlSRUlSQSBBTUFaT05BUyBMVERBLUVQUDwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5UaXBvIGRlIEltcGFjdG86PC9zdHJvbmc+IExhbsOnYW1lbnRvIGUgcXVlaW1hIGRlIHJlamVpdG9zIGRlIGluZMO6c3RyaWEgbWFkZWlyZWlyYTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EZXNjcmnDp8Ojbzo8L3N0cm9uZz4gTGFuw6dhbWVudG8gZSBxdWVpbWEgZGUgcmVqZWl0b3MgZGUgaW5kw7pzdHJpYSBtYWRlaXJlaXJhIGEgY8OpdSBhYmVydG8sIGVtIGRlc2Fjb3JkbyBjb20gYSBMaWNlbsOnYSBkZSBPcGVyYcOnw6NvLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IDA3LzExLzIwMTg8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlZhbG9yIE11bHRhOjwvc3Ryb25nPiBSJCAyNC4yNDAsMDA8L3A+CiAgICAgICAgPC9kaXY+CiAgICAgICAg" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_3d6ab60b59cb903d9c7f96e41449bec4.setContent(i_frame_518f13529c9ab1b431469a8881cf6f2d);
+            
+        
+
+        marker_99ca457f9d11da393b81af6e8144ae36.bindPopup(popup_3d6ab60b59cb903d9c7f96e41449bec4)
+        ;
+
+        
+    
+    
+            marker_99ca457f9d11da393b81af6e8144ae36.bindTooltip(
+                `<div>
+                     Lançamento e queima de rejeitos de indústria madeireira em Manicoré (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1efe6896c1eced722c7b2f5b355c1402 = L.marker(
+                [-3.204065, -52.209961],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_5a51a23d8365e1260ecbe4a681ac40bf = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_1efe6896c1eced722c7b2f5b355c1402.setIcon(icon_5a51a23d8365e1260ecbe4a681ac40bf);
+        
+    
+        var popup_b5b9c48b44b7a783aa16b9f4cf54911f = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_068095d755c7b5c4e5d0363df179d52a = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDEwMDAwMDktNzUuMjAxOC40LjAxLjM5MDM8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IEFsdGFtaXJhIC0gUEEgPGk+KE11bmljw61waW8gKEFwcm94LikpPC9pPjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5SZXNwb25zw6F2ZWw6PC9zdHJvbmc+IE1BUkNJTyBTSUxWQSBWQUxFPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gRGVzbWF0YW1lbnRvPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBBw6fDo28gQ2l2aWwgUMO6YmxpY2EgbW92aWRhIHBvciBkZXNtYXRhbWVudG8gZSBpbXBlZGltZW50byBkYSByZWdlbmVyYcOnw6NvIGRhIGNvYmVydHVyYSBmbG9yZXN0YWwgZXhwbG9yYWRhLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_b5b9c48b44b7a783aa16b9f4cf54911f.setContent(i_frame_068095d755c7b5c4e5d0363df179d52a);
+            
+        
+
+        marker_1efe6896c1eced722c7b2f5b355c1402.bindPopup(popup_b5b9c48b44b7a783aa16b9f4cf54911f)
+        ;
+
+        
+    
+    
+            marker_1efe6896c1eced722c7b2f5b355c1402.bindTooltip(
+                `<div>
+                     Desmatamento em Altamira (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_3cf32e2bda2a7017c3155b105d48b5fb = L.marker(
+                [-5.3462821, -49.1007401],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_1b45835c9d6392195ee395725796c79e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_3cf32e2bda2a7017c3155b105d48b5fb.setIcon(icon_1b45835c9d6392195ee395725796c79e);
+        
+    
+        var popup_6e1a1b7c5c6fed0d04ba7b5760f1a491 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_e62f8e68feabf083151a6478cc6152a2 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDEwMDAzMDUtMDYuMjAxOC40LjAxLjM5MDE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hcmFiw6EgLSBQQSA8aT4oTXVuaWPDrXBpbyAoQXByb3guKSk8L2k+PC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlJlc3BvbnPDoXZlbDo8L3N0cm9uZz4gVkFMRSBTLkEuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gRGVzbWF0YW1lbnRvIGRlIEFQUDwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EZXNjcmnDp8Ojbzo8L3N0cm9uZz4gU3VwcmVzc8OjbyBkZSBjYXN0YW5oYWlzLCBwb2x1acOnw6NvIGjDrWRyaWNhIGRvIFJpbyBJdGFjYWnDum5hcyBlIElnYXJhcMOpIFNhbG9ibyBkZXZpZG8gw6AgYXRpdmlkYWRlIG1pbmVyw6FyaWEgZG8gUHJvamV0byBTYWxvYm8sIGltcGFjdGFuZG8gY29tdW5pZGFkZXMgaW5kw61nZW5hcyBYaWtyaW4uPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPsOBcmVhIEFmZXRhZGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5WYWxvciBNdWx0YTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIA==" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_6e1a1b7c5c6fed0d04ba7b5760f1a491.setContent(i_frame_e62f8e68feabf083151a6478cc6152a2);
+            
+        
+
+        marker_3cf32e2bda2a7017c3155b105d48b5fb.bindPopup(popup_6e1a1b7c5c6fed0d04ba7b5760f1a491)
+        ;
+
+        
+    
+    
+            marker_3cf32e2bda2a7017c3155b105d48b5fb.bindTooltip(
+                `<div>
+                     Desmatamento de APP em Marabá (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_de19ca8c1c516bd3cca1656e394bae8f = L.marker(
+                [-5.804618, -61.289483],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_9f9aacaa151f0bbc336a131c67f4f4fd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_de19ca8c1c516bd3cca1656e394bae8f.setIcon(icon_9f9aacaa151f0bbc336a131c67f4f4fd);
+        
+    
+        var popup_11fd372505bca160b4a8128c553f2099 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_0d03e62cb570b58186391f4a7ef43ea8 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDEwMDMxMDUtMTAuMjAxNy40LjAxLjMyMDA8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hbmljb3LDqSAtIEFNIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBBcGFyZWNpZGEgRmVybWlubyBNYXJxdWVzPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gRGVzbWF0YW1lbnRvIGRlIEZsb3Jlc3RhIEFtYXrDtG5pY2E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGVzY3Jpw6fDo286PC9zdHJvbmc+IERlc21hdGFtZW50byBkZSAxMzMsMTEgaGVjdGFyZXMgZGUgRmxvcmVzdGEgQW1hesO0bmljYSBzZW0gYXV0b3JpemHDp8OjbywgYWZldGFuZG8gbyBlY29zc2lzdGVtYSwgcmVjdXJzb3MgaMOtZHJpY29zIGUgbyBjbGltYS48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGF0YSBkbyBJbXBhY3RvOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gMTMzMTEwMC4wIG0yPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlZhbG9yIE11bHRhOjwvc3Ryb25nPiBSJCAxLjQyMy4xMDAsMTY8L3A+CiAgICAgICAgPC9kaXY+CiAgICAgICAg" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_11fd372505bca160b4a8128c553f2099.setContent(i_frame_0d03e62cb570b58186391f4a7ef43ea8);
+            
+        
+
+        marker_de19ca8c1c516bd3cca1656e394bae8f.bindPopup(popup_11fd372505bca160b4a8128c553f2099)
+        ;
+
+        
+    
+    
+            marker_de19ca8c1c516bd3cca1656e394bae8f.bindTooltip(
+                `<div>
+                     Desmatamento de Floresta Amazônica em Manicoré (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b6fd29e6787f6fa4a2d7e696d5ac04bf = L.marker(
+                [-16.8226769, -49.2452546],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_20309deeb7f865e48fc07fad54ffbd04 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_b6fd29e6787f6fa4a2d7e696d5ac04bf.setIcon(icon_20309deeb7f865e48fc07fad54ffbd04);
+        
+    
+        var popup_bc7b2f23b63e790003beb6ae22e42041 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_dbc1e957e0b4fef0712e69e1f94f60bd = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDUwOTYwNTMtNjkuMjAxOC44LjA5LjAwMTE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IEFwYXJlY2lkYSBkZSBHb2nDom5pYSAtIEdPIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBXLiBTLiBMYXZhbmRlcmlhIExUREEtTUU8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VGlwbyBkZSBJbXBhY3RvOjwvc3Ryb25nPiBQb2x1acOnw6NvIEjDrWRyaWNhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBMYW7Dp2FtZW50byBkZSBlZmx1ZW50ZXMgKHRpbnRhLCBwcm9kdXRvcyBxdcOtbWljb3MgZSBkZSBsaW1wZXphKSBkaXJldGFtZW50ZSBubyBzb2xvIGUgbm8gQ8OzcnJlZ28gVGFtYW5kdcOhLCBjYXVzYW5kbyBwb2x1acOnw6NvIGjDrWRyaWNhLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IFIkIDE1LjAwMCwwMDwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_bc7b2f23b63e790003beb6ae22e42041.setContent(i_frame_dbc1e957e0b4fef0712e69e1f94f60bd);
+            
+        
+
+        marker_b6fd29e6787f6fa4a2d7e696d5ac04bf.bindPopup(popup_bc7b2f23b63e790003beb6ae22e42041)
+        ;
+
+        
+    
+    
+            marker_b6fd29e6787f6fa4a2d7e696d5ac04bf.bindTooltip(
+                `<div>
+                     Poluição Hídrica em Aparecida de Goiânia (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d46960becbef6c3ad45c6d86aa95b520 = L.marker(
+                [-17.7215439, -48.158118],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_19ff6170e1edb58f9986325e2008943c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_d46960becbef6c3ad45c6d86aa95b520.setIcon(icon_19ff6170e1edb58f9986325e2008943c);
+        
+    
+        var popup_9b7af7dab8c4103909fe650c7dcd875d = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_d07bcab9b50fd1bbb261c7cddc2dcf88 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDU4NDIwMDMtODkuMjAyMy44LjA5LjAwNzQ8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IElwYW1lcmkgLSBHTyA8aT4oTXVuaWPDrXBpbyAoQXByb3guKSk8L2k+PC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlJlc3BvbnPDoXZlbDo8L3N0cm9uZz4gRVFVQVRPUklBTCBHT0nDgVMgRElTVFJJQlVJRE9SQSBERSBFTkVSR0lBIFMuQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5UaXBvIGRlIEltcGFjdG86PC9zdHJvbmc+IEludGVycnVww6fDo28gbm8gZm9ybmVjaW1lbnRvIGRlIGVuZXJnaWEgZWzDqXRyaWNhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBJbnRlcnJ1cMOnw7VlcyBzdWNlc3NpdmFzIGUgcHJvbG9uZ2FkYXMgbm8gZm9ybmVjaW1lbnRvIGRlIGVuZXJnaWEgZWzDqXRyaWNhLCBjYXVzYW5kbyBkYW5vcyBtYXRlcmlhaXMgZSBtb3JhaXMgYW8gdXN1w6FyaW8uPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPsOBcmVhIEFmZXRhZGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5WYWxvciBNdWx0YTo8L3N0cm9uZz4gUiQgMzguMjg1LDkxPC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIA==" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_9b7af7dab8c4103909fe650c7dcd875d.setContent(i_frame_d07bcab9b50fd1bbb261c7cddc2dcf88);
+            
+        
+
+        marker_d46960becbef6c3ad45c6d86aa95b520.bindPopup(popup_9b7af7dab8c4103909fe650c7dcd875d)
+        ;
+
+        
+    
+    
+            marker_d46960becbef6c3ad45c6d86aa95b520.bindTooltip(
+                `<div>
+                     Interrupção no fornecimento de energia elétrica em Ipameri (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1cc43d006837e3064bdb4c11fcbea33d = L.marker(
+                [-4.558259, -37.767894],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_5c577c0360524e6b0b87a4de8d61a619 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_1cc43d006837e3064bdb4c11fcbea33d.setIcon(icon_5c577c0360524e6b0b87a4de8d61a619);
+        
+    
+        var popup_52fec750ee1d90909c7035ab69936a88 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_c89b90e8d33e2b8c22967b0fc54b263a = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDAwNTAwMDItMjYuMjAyMC44LjA2LjAwMzU8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IEFyYWNhdGkgLSBDRSA8aT4oTXVuaWPDrXBpbyAoQXByb3guKSk8L2k+PC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlJlc3BvbnPDoXZlbDo8L3N0cm9uZz4gT3NjYXIgTm9jZTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5UaXBvIGRlIEltcGFjdG86PC9zdHJvbmc+IE9jdXBhw6fDo28gSXJyZWd1bGFyIGRlIFRlcnJlbm88L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGVzY3Jpw6fDo286PC9zdHJvbmc+IE9jdXBhw6fDo28gaXJyZWd1bGFyIGRlIGJhcnJhY2EgZGUgcHJhaWEgZW0gdGVycmVubyBkZSBtYXJpbmhhLCBzZW0gbGljZW7Dp2EsIGltcGFjdGFuZG8gbyBhY2Vzc28gcMO6YmxpY28gZSBvIG1laW8gYW1iaWVudGUgbG9jYWwuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gMDkvMDEvMjAyMDwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_52fec750ee1d90909c7035ab69936a88.setContent(i_frame_c89b90e8d33e2b8c22967b0fc54b263a);
+            
+        
+
+        marker_1cc43d006837e3064bdb4c11fcbea33d.bindPopup(popup_52fec750ee1d90909c7035ab69936a88)
+        ;
+
+        
+    
+    
+            marker_1cc43d006837e3064bdb4c11fcbea33d.bindTooltip(
+                `<div>
+                     Ocupação Irregular de Terreno em Aracati (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0f1f6b0b7d40b98e9b78658181cae4b3 = L.marker(
+                [-20.3297037, -40.2920174],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_6afe1888fb37dfd12099005d13b88685 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_0f1f6b0b7d40b98e9b78658181cae4b3.setIcon(icon_6afe1888fb37dfd12099005d13b88685);
+        
+    
+        var popup_ce63dc91311b6b624cadff077382a295 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_c99842739f42058f7731dd886a33e0bd = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDAwMDIxNzEtOTMuMjAxOC44LjA4LjAwMzU8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IFZpbGEgVmVsaGEgLSBFUyA8aT4oTXVuaWPDrXBpbyAoQXByb3guKSk8L2k+PC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlJlc3BvbnPDoXZlbDo8L3N0cm9uZz4gQSBJR1JFSkE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VGlwbyBkZSBJbXBhY3RvOjwvc3Ryb25nPiBQb2x1acOnw6NvIFNvbm9yYTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EZXNjcmnDp8Ojbzo8L3N0cm9uZz4gRW1pc3PDo28gZGUgcnXDrWRvcyBhY2ltYSBkb3MgbGltaXRlcyBwZXJtaXRpZG9zIHBlbGEgTkJSIDEwLjE1MSwgY2F1c2FuZG8gcGVydHVyYmHDp8OjbyBhb3MgbW9yYWRvcmVzIHZpemluaG9zLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_ce63dc91311b6b624cadff077382a295.setContent(i_frame_c99842739f42058f7731dd886a33e0bd);
+            
+        
+
+        marker_0f1f6b0b7d40b98e9b78658181cae4b3.bindPopup(popup_ce63dc91311b6b624cadff077382a295)
+        ;
+
+        
+    
+    
+            marker_0f1f6b0b7d40b98e9b78658181cae4b3.bindTooltip(
+                `<div>
+                     Poluição Sonora em Vila Velha (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2bcd8e314b7f422ad76413db75537010 = L.marker(
+                [-17.745, -48.625],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_cb99b0050654a58415fd562c3b515423 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_2bcd8e314b7f422ad76413db75537010.setIcon(icon_cb99b0050654a58415fd562c3b515423);
+        
+    
+        var popup_dfd7e32d7a97c3ab2ce686c6154cf6c7 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_9197523dbf85a8b562d8f49e3b83ee25 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDU2MDM5OTItOTYuMjAyMS44LjA5LjAwMjQ8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IENhbGRhcyBOb3ZhcyAtIEdPIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBJbGhhcyBEbyBMYWdvIEluY29ycG9yYcOnw6NvIFNwZSBMdGRhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gUHVibGljaWRhZGUgRW5nYW5vc2EgZSBBdHJhc28gbmEgRW50cmVnYSBkZSBJbcOzdmVsPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBBdHJhc28gZGUgMzM5IGRpYXMgbmEgZW50cmVnYSBkZSBpbcOzdmVsIGUgZGl2ZXJnw6puY2lhcyBlbnRyZSBvIHByb21ldGlkbyBuYSB2ZW5kYSBlIG8gZW50cmVndWUsIGluY2x1aW5kbyBtb2JpbGnDoXJpbyBlIMOhcmVhcyBkZSBjb252aXbDqm5jaWEgZW0gZGVzYWNvcmRvLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IDI5LzEyLzIwMTM8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlZhbG9yIE11bHRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgPC9kaXY+CiAgICAgICAg" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_dfd7e32d7a97c3ab2ce686c6154cf6c7.setContent(i_frame_9197523dbf85a8b562d8f49e3b83ee25);
+            
+        
+
+        marker_2bcd8e314b7f422ad76413db75537010.bindPopup(popup_dfd7e32d7a97c3ab2ce686c6154cf6c7)
+        ;
+
+        
+    
+    
+            marker_2bcd8e314b7f422ad76413db75537010.bindTooltip(
+                `<div>
+                     Publicidade Enganosa e Atraso na Entrega de Imóvel em Caldas Novas (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0b43d6c425c861b96d1b647de96fe4e4 = L.marker(
+                [-16.5001973, -49.4254788],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_359392af8e432e5214200cf721a71486 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_0b43d6c425c861b96d1b647de96fe4e4.setIcon(icon_359392af8e432e5214200cf721a71486);
+        
+    
+        var popup_9e2003854e6a3c392c41853058610476 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_8700233bc81b202b67f9d27773ed1f46 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDUxNDY4OTYtMDUuMjAyMC44LjA5LjAwNjQ8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IEdvaWFuaXJhIC0gR08gPGk+KE11bmljw61waW8gKEFwcm94LikpPC9pPjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5SZXNwb25zw6F2ZWw6PC9zdHJvbmc+IFNwZSBTb2NpZWRhZGUgUmVzaWRlbmNpYWwgU8OjbyBCZXJuYXJkbyBMdGRhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gSW5mcmFlc3RydXR1cmEgSXJyZWd1bGFyPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBBdHJhc28gbmEgZW50cmVnYSBkZSBvYnJhcyBkZSBpbmZyYWVzdHJ1dHVyYSwgZXNwZWNpZmljYW1lbnRlIGEgcmVkZSBkZSBkaXN0cmlidWnDp8OjbyBkZSDDoWd1YSBwb3TDoXZlbCwgY2F1c2FuZG8gdHJhbnN0b3Jub3MgYW8gY29tcHJhZG9yIGRvIGxvdGUuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gMjIvMDMvMjAxNjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_9e2003854e6a3c392c41853058610476.setContent(i_frame_8700233bc81b202b67f9d27773ed1f46);
+            
+        
+
+        marker_0b43d6c425c861b96d1b647de96fe4e4.bindPopup(popup_9e2003854e6a3c392c41853058610476)
+        ;
+
+        
+    
+    
+            marker_0b43d6c425c861b96d1b647de96fe4e4.bindTooltip(
+                `<div>
+                     Infraestrutura Irregular em Goianira (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_63216da3001ec34a9d2621f4dc21cc09 = L.marker(
+                [-3.1316333, -59.9825041],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_0a04c4dc6ce9f5a5bf3a541e0d048808 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_63216da3001ec34a9d2621f4dc21cc09.setIcon(icon_0a04c4dc6ce9f5a5bf3a541e0d048808);
+        
+    
+        var popup_1e005ed076a5038bdb3390cd587a82e2 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_2e23cb9534cb9729e58112a65227cf66 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDA2NDM4MTItMzMuMjAxNS44LjA0LjAwMDE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hbmF1cyAtIEFNIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBNYW5hdXMgQW1iaWVudGFsIFMvQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5UaXBvIGRlIEltcGFjdG86PC9zdHJvbmc+IEFiYXN0ZWNpbWVudG8gSXJyZWd1bGFyIGRlIMOBZ3VhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBBYmFzdGVjaW1lbnRvIGlycmVndWxhciBkZSDDoWd1YSBhZmV0YW5kbyBtb3JhZG9yZXMgZG8gQmFpcnJvIEpvcmdlIFRleGVpcmEsIGNvbSBmb3JuZWNpbWVudG8gbcOheGltbyBkZSB0csOqcyBob3JhcyBkacOhcmlhcywgY2hlZ2FuZG8gYSB0cmludGEgbWludXRvcy48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGF0YSBkbyBJbXBhY3RvOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlZhbG9yIE11bHRhOjwvc3Ryb25nPiBSJCAxLjIwMCwwMDwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_1e005ed076a5038bdb3390cd587a82e2.setContent(i_frame_2e23cb9534cb9729e58112a65227cf66);
+            
+        
+
+        marker_63216da3001ec34a9d2621f4dc21cc09.bindPopup(popup_1e005ed076a5038bdb3390cd587a82e2)
+        ;
+
+        
+    
+    
+            marker_63216da3001ec34a9d2621f4dc21cc09.bindTooltip(
+                `<div>
+                     Abastecimento Irregular de Água em Manaus (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_a5c0f8361bb14998b88b2065dff8989c = L.marker(
+                [-3.1316333, -59.9825041],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_f9b5be3b8f256d02a56b88f4cfc442e2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_a5c0f8361bb14998b88b2065dff8989c.setIcon(icon_f9b5be3b8f256d02a56b88f4cfc442e2);
+        
+    
+        var popup_d32c2d5b0d904a18d57b732acaf2c0eb = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_d713a078d1a78bbe4b9cd048ca93ed97 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDA2NDM4NDEtODMuMjAxNS44LjA0LjAwMDE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hbmF1cyAtIEFNIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBNYW5hdXMgQW1iaWVudGFsIFMvQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5UaXBvIGRlIEltcGFjdG86PC9zdHJvbmc+IEFiYXN0ZWNpbWVudG8gaXJyZWd1bGFyIGRlIMOhZ3VhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBBYmFzdGVjaW1lbnRvIGlycmVndWxhciBkZSDDoWd1YSBubyBCYWlycm8gSm9yZ2UgVGV4ZWlyYSwgY29tIGZvcm5lY2ltZW50byBkZXNjb250w61udW8gZSBwcmVjw6FyaW8sIGFmZXRhbmRvIG1vcmFkb3JlcyBkYSByZWdpw6NvLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IFIkIDMuMDAwLDAwPC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIA==" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_d32c2d5b0d904a18d57b732acaf2c0eb.setContent(i_frame_d713a078d1a78bbe4b9cd048ca93ed97);
+            
+        
+
+        marker_a5c0f8361bb14998b88b2065dff8989c.bindPopup(popup_d32c2d5b0d904a18d57b732acaf2c0eb)
+        ;
+
+        
+    
+    
+            marker_a5c0f8361bb14998b88b2065dff8989c.bindTooltip(
+                `<div>
+                     Abastecimento irregular de água em Manaus (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_9f8db236c86071fa9434c05c27cf59cb = L.marker(
+                [-3.1316333, -59.9825041],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_eff71e0fe0cef74c28e0c34ea2a3ece6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_9f8db236c86071fa9434c05c27cf59cb.setIcon(icon_eff71e0fe0cef74c28e0c34ea2a3ece6);
+        
+    
+        var popup_2efe131910abb74623befda11068aeff = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_d6deede151518041fa9ca4dafc6afba2 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDA0NTIyOTItNjYuMjAyNC44LjA0LjAwMDE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IE1hbmF1cyAtIEFNIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBNQU5BVVMgQU1CSUVOVEFMIFNBPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gSW50ZXJydXDDp8OjbyBubyBmb3JuZWNpbWVudG8gZGUgw6FndWE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGVzY3Jpw6fDo286PC9zdHJvbmc+IEludGVycnVww6fDo28gZG8gZm9ybmVjaW1lbnRvIGRlIMOhZ3VhIHBvciAzIGRpYXMgZGV2aWRvIGFvIHJvbXBpbWVudG8gZGUgdW0gZW5jYW5hbWVudG8gcGVydGVuY2VudGUgw6AgZW1wcmVzYSByw6kuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gMjAvMDIvMjQ8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlZhbG9yIE11bHRhOjwvc3Ryb25nPiBSJCAzLjAwMCwwMDwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_2efe131910abb74623befda11068aeff.setContent(i_frame_d6deede151518041fa9ca4dafc6afba2);
+            
+        
+
+        marker_9f8db236c86071fa9434c05c27cf59cb.bindPopup(popup_2efe131910abb74623befda11068aeff)
+        ;
+
+        
+    
+    
+            marker_9f8db236c86071fa9434c05c27cf59cb.bindTooltip(
+                `<div>
+                     Interrupção no fornecimento de água em Manaus (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e24e01b3273de33642795bc9aa5059b2 = L.marker(
+                [-16.0058567, -41.2793731],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_a199161c9e6360d8147932df7b568fa8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_e24e01b3273de33642795bc9aa5059b2.setIcon(icon_a199161c9e6360d8147932df7b568fa8);
+        
+    
+        var popup_f114b8adf0a006346962fe438eb883db = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_ae44c373e89eba4c5aec1307a2cf57f3 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDUwMDMwMzQtNDkuMjAyMy44LjEzLjA0ODc8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IFBlZHJhIEF6dWwgLSBNRyA8aT4oTXVuaWPDrXBpbyAoQXByb3guKSk8L2k+PC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlJlc3BvbnPDoXZlbDo8L3N0cm9uZz4gRUxDSU8gQUxNRUlEQSBBUkFVSk88L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VGlwbyBkZSBJbXBhY3RvOjwvc3Ryb25nPiBEZXNtYXRhbWVudG8gZGUgQVBQPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBEZXNtYXRlIGRlIDExLDgyNiBoZWN0YXJlcyBkZSBGbG9yZXN0YSBFc3RhY2lvbmFsIFNlbWlkZWNpZHVhbCBjb20gdGlwb2xvZ2lhIGRlIHJlZ2VuZXJhw6fDo28gZG8gQmlvbWEgTWF0YSBBdGzDom50aWNhLCBzZW0gYSBkZXZpZGEgYXV0b3JpemHDp8OjbyBhbWJpZW50YWwuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gMDEvMDMvMjAyMzwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiAxMTgyNjAuMCBtMjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5WYWxvciBNdWx0YTo8L3N0cm9uZz4gUiQgNTkuMTI3LDYzPC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIA==" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_f114b8adf0a006346962fe438eb883db.setContent(i_frame_ae44c373e89eba4c5aec1307a2cf57f3);
+            
+        
+
+        marker_e24e01b3273de33642795bc9aa5059b2.bindPopup(popup_f114b8adf0a006346962fe438eb883db)
+        ;
+
+        
+    
+    
+            marker_e24e01b3273de33642795bc9aa5059b2.bindTooltip(
+                `<div>
+                     Desmatamento de APP em Pedra Azul (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_942dd443b0f2ae091327eb0cbee26961 = L.marker(
+                [-21.0169567, -46.7458301],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_602b7352ad43119e11589993aec0c424 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_942dd443b0f2ae091327eb0cbee26961.setIcon(icon_602b7352ad43119e11589993aec0c424);
+        
+    
+        var popup_23f3a491fe0dd3f5b6c84fa15766f572 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_29b6febf75a3629dbe06d5332901f582 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDUwMDAyNzEtNDYuMjAxOS44LjEzLjAzNDg8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IEphY3XDrSAtIE1HIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBMVUlaIEJVRU5PIERPUyBTQU5UT1M8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VGlwbyBkZSBJbXBhY3RvOjwvc3Ryb25nPiBEZXNtYXRhbWVudG8gZGUgQVBQPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBTdXByZXNzw6NvIGRlIDMwIMOhcnZvcmVzIG5hdGl2YXMsIGRlcG9zaXRhZGFzIGVtIMOhcmVhIGRlIHByZXNlcnZhw6fDo28gcGVybWFuZW50ZSwgaW1wZWRpbmRvIGEgcmVnZW5lcmHDp8OjbyBuYXR1cmFsLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IFIkIDQuNTI4LDc2PC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIA==" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_23f3a491fe0dd3f5b6c84fa15766f572.setContent(i_frame_29b6febf75a3629dbe06d5332901f582);
+            
+        
+
+        marker_942dd443b0f2ae091327eb0cbee26961.bindPopup(popup_23f3a491fe0dd3f5b6c84fa15766f572)
+        ;
+
+        
+    
+    
+            marker_942dd443b0f2ae091327eb0cbee26961.bindTooltip(
+                `<div>
+                     Desmatamento de APP em Jacuí (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1ba4d63e852a270a3af41afb58cc46ce = L.marker(
+                [-21.6015, -45.41558333333333],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_5b31c122b6921bf6f56c26a5a3f17d5e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "pushpin", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_1ba4d63e852a270a3af41afb58cc46ce.setIcon(icon_5b31c122b6921bf6f56c26a5a3f17d5e);
+        
+    
+        var popup_babe1ee7777495ae4b29c56e6a95985f = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_db9118306cb1c3f1783e1a8d05e95903 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDUwMTI1NzktMDIuMjAyMi44LjEzLjA3MDc8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IFZhcmdpbmhhIC0gTUcgPGk+KFByZWNpc2EgKE9yaWdpbmFsKSk8L2k+PC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlJlc3BvbnPDoXZlbDo8L3N0cm9uZz4gQ09OU1RSVVRPUkEgREhBUk1BIExUREE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VGlwbyBkZSBJbXBhY3RvOjwvc3Ryb25nPiBQb2x1acOnw6NvIEjDrWRyaWNhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBDYXB0YcOnw6NvIGlycmVndWxhciBkZSDDoWd1YSBkbyBSaW8gVmVyZGUgcGFyYSBvYnJhcyBkZSBsb3RlYW1lbnRvLCBpbXBhY3RhbmRvIGEgZGlzcG9uaWJpbGlkYWRlIGjDrWRyaWNhIGUgQVBQLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IDE2LzA0LzIwMjE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlZhbG9yIE11bHRhOjwvc3Ryb25nPiBSJCAyMC4wMDAsMDA8L3A+CiAgICAgICAgPC9kaXY+CiAgICAgICAg" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_babe1ee7777495ae4b29c56e6a95985f.setContent(i_frame_db9118306cb1c3f1783e1a8d05e95903);
+            
+        
+
+        marker_1ba4d63e852a270a3af41afb58cc46ce.bindPopup(popup_babe1ee7777495ae4b29c56e6a95985f)
+        ;
+
+        
+    
+    
+            marker_1ba4d63e852a270a3af41afb58cc46ce.bindTooltip(
+                `<div>
+                     Poluição Hídrica em Varginha (Precisa (Original))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_0ab18064e1929b515f2590d3919cb1ef = L.marker(
+                [-16.680882, -49.2532691],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_b66e3f73fe2359fd30cfc7e954ec26cd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_0ab18064e1929b515f2590d3919cb1ef.setIcon(icon_b66e3f73fe2359fd30cfc7e954ec26cd);
+        
+    
+        var popup_95b050ae50ca5c7dcafa5db0a9a9d4c2 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_205e2144f3f1477b2199c3f2f6ff6014 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDUxNjE0OTctNTUuMjAyMC44LjA5LjAwNTE8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IEdvacOibmlhIC0gR08gPGk+KE11bmljw61waW8gKEFwcm94LikpPC9pPjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5SZXNwb25zw6F2ZWw6PC9zdHJvbmc+IEZSQU5aIEFVR1VTVE8gTUFSTFVTIFJBU01VU1NFTiBST0RSSUdVRVM8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VGlwbyBkZSBJbXBhY3RvOjwvc3Ryb25nPiBEYW5vcyBhIHBvc3RlIGRlIGVuZXJnaWEgZWzDqXRyaWNhPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRlc2NyacOnw6NvOjwvc3Ryb25nPiBDb2xpc8OjbyBkZSB2ZcOtY3VsbyBjb20gcG9zdGUgZGUgZW5lcmdpYSBlbMOpdHJpY2EgZGV2aWRvIMOgIG5lZ2xpZ8OqbmNpYSBkbyBjb25kdXRvciwgY2F1c2FuZG8gZGFub3MgbWF0ZXJpYWlzIGFvIHZlw61jdWxvIGUgYW8gcG9zdGUuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPkRhdGEgZG8gSW1wYWN0bzo8L3N0cm9uZz4gMjQvMTIvMjAxODwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IFIkIDI2LjQ1OSwyNTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_95b050ae50ca5c7dcafa5db0a9a9d4c2.setContent(i_frame_205e2144f3f1477b2199c3f2f6ff6014);
+            
+        
+
+        marker_0ab18064e1929b515f2590d3919cb1ef.bindPopup(popup_95b050ae50ca5c7dcafa5db0a9a9d4c2)
+        ;
+
+        
+    
+    
+            marker_0ab18064e1929b515f2590d3919cb1ef.bindTooltip(
+                `<div>
+                     Danos a poste de energia elétrica em Goiânia (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_4ca83db187bfc2813924b163871ca516 = L.marker(
+                [-21.5565914, -45.4340674],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_455938b957c60a5c074b4e1d431c242c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_4ca83db187bfc2813924b163871ca516.setIcon(icon_455938b957c60a5c074b4e1d431c242c);
+        
+    
+        var popup_ff43483df39dcfc77761856020d71a9a = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_303dee30179f2fdb59568a1c682e9b42 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDUwMDc5MTYtMjAuMjAxNi44LjEzLjA3MDc8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IFZhcmdpbmhhIC0gTUcgPGk+KE11bmljw61waW8gKEFwcm94LikpPC9pPjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5SZXNwb25zw6F2ZWw6PC9zdHJvbmc+IFNBTlRBIExVSVpBIEVNUFJFRU5ESU1FTlRPUyBJTU9CSUxJw4FSSU9TIExUREEuPC9wPgogICAgICAgICAgICA8cD48c3Ryb25nPlRpcG8gZGUgSW1wYWN0bzo8L3N0cm9uZz4gRGVzbWF0YW1lbnRvIGRlIEFQUDwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EZXNjcmnDp8Ojbzo8L3N0cm9uZz4gQXRlcnJhbWVudG8gZGUgbmFzY2VudGUgZSBpbnRlcnZlbsOnw6NvIGVtIMOhcmVhIGRlIHByZXNlcnZhw6fDo28gcGVybWFuZW50ZSAoQVBQKSBkZXZpZG8gw6AgaW5zdGFsYcOnw6NvIGRlIGF0aXZpZGFkZSBzZW0gYXV0b3JpemHDp8Ojby48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGF0YSBkbyBJbXBhY3RvOjwvc3Ryb25nPiBOL0E8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gNDAwMDAuMCBtMjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5WYWxvciBNdWx0YTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIA==" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_ff43483df39dcfc77761856020d71a9a.setContent(i_frame_303dee30179f2fdb59568a1c682e9b42);
+            
+        
+
+        marker_4ca83db187bfc2813924b163871ca516.bindPopup(popup_ff43483df39dcfc77761856020d71a9a)
+        ;
+
+        
+    
+    
+            marker_4ca83db187bfc2813924b163871ca516.bindTooltip(
+                `<div>
+                     Desmatamento de APP em Varginha (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2b43e61089de01d22809b5553e986cd1 = L.marker(
+                [-20.2259718, -42.651548],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_fe5a8021a86067fb800ae16cf2c1b1c2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_2b43e61089de01d22809b5553e986cd1.setIcon(icon_fe5a8021a86067fb800ae16cf2c1b1c2);
+        
+    
+        var popup_aa36208a588d6a028d5cb305f42c140b = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_128caab8fe8dbafef5dcbf5a144dbe32 = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDAwMjM0ODMtNjguMjAxNi44LjEzLjA1NDk8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IFJpbyBDYXNjYSAtIE1HIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBTQU1BUkNPIE1JTkVSQcOHw4NPIFMvQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5UaXBvIGRlIEltcGFjdG86PC9zdHJvbmc+IEFzc29yZWFtZW50bzwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EZXNjcmnDp8Ojbzo8L3N0cm9uZz4gQXNzb3JlYW1lbnRvIGRvIGxlaXRvIGRvIEPDs3JyZWdvIENhbnRhIEdhbG8gZGV2aWRvIGEgZGVzbGl6YW1lbnRvIGRlIHRhbHVkZSwgY2F1c2FuZG8gZXJvc8OjbyBlIHByZWp1w616byBhbyBtZWlvIGFtYmllbnRlLjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5EYXRhIGRvIEltcGFjdG86PC9zdHJvbmc+IDE3LzA0LzIwMTM8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+w4FyZWEgQWZldGFkYTo8L3N0cm9uZz4gMTQwLjAgbTI8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+VmFsb3IgTXVsdGE6PC9zdHJvbmc+IE4vQTwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA=" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_aa36208a588d6a028d5cb305f42c140b.setContent(i_frame_128caab8fe8dbafef5dcbf5a144dbe32);
+            
+        
+
+        marker_2b43e61089de01d22809b5553e986cd1.bindPopup(popup_aa36208a588d6a028d5cb305f42c140b)
+        ;
+
+        
+    
+    
+            marker_2b43e61089de01d22809b5553e986cd1.bindTooltip(
+                `<div>
+                     Assoreamento em Rio Casca (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_9006370b5397bfc02af3a7e69c270c0f = L.marker(
+                [-20.2259718, -42.651548],
+                {}
+            ).addTo(map_4922f35c802ff1379319e64751ee856e);
+        
+    
+            var icon_7b75f76fc7c2033ab8d6a474ad7bcdb1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"}
+            );
+            marker_9006370b5397bfc02af3a7e69c270c0f.setIcon(icon_7b75f76fc7c2033ab8d6a474ad7bcdb1);
+        
+    
+        var popup_cdfb1158a9acafec73eb772c4114b3d4 = L.popup({"maxWidth": 380});
+
+        
+            
+                var i_frame_182565b8862a1c0e717a5495bb94a72e = $(`<iframe src="data:text/html;charset=utf-8;base64,CiAgICAKICAgICAgICA8ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJweDsgbWF4LXdpZHRoOiAzNTBweDsiPgogICAgICAgICAgICA8aDQgc3R5bGU9Im1hcmdpbi1ib3R0b206IDVweDsiPkRldGFsaGVzIGRvIERhbm8gQW1iaWVudGFsPC9oND4KICAgICAgICAgICAgPHA+PHN0cm9uZz5OwrogUHJvY2Vzc286PC9zdHJvbmc+IDAwMjMxMTEtMjIuMjAxNi44LjEzLjA1NDk8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+TG9jYWw6PC9zdHJvbmc+IFJpbyBDYXNjYSAtIE1HIDxpPihNdW5pY8OtcGlvIChBcHJveC4pKTwvaT48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+UmVzcG9uc8OhdmVsOjwvc3Ryb25nPiBTQU1BUkNPIE1JTkVSQcOHw4NPIFMvQTwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5UaXBvIGRlIEltcGFjdG86PC9zdHJvbmc+IERlc21hdGFtZW50byBkZSBBUFA8L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGVzY3Jpw6fDo286PC9zdHJvbmc+IEludGVydmVuw6fDo28gZW0gw6FyZWEgZGUgcHJlc2VydmHDp8OjbyBwZXJtYW5lbnRlIGNvbSBjb25zdHJ1w6fDo28gZGUgbWluZXJvZHV0b3MsIGNhdXNhbmRvIGVyb3PDo28gZSBhc3NvcmVhbWVudG8gZG8gQ8OzcnJlZ28gQ2FudGEgR2Fsby48L3A+CiAgICAgICAgICAgIDxwPjxzdHJvbmc+RGF0YSBkbyBJbXBhY3RvOjwvc3Ryb25nPiAwNS8wMy8xMDwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz7DgXJlYSBBZmV0YWRhOjwvc3Ryb25nPiAyMDAuMCBtMjwvcD4KICAgICAgICAgICAgPHA+PHN0cm9uZz5WYWxvciBNdWx0YTo8L3N0cm9uZz4gTi9BPC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIA==" width="380" style="border:none !important;" height="320"></iframe>`)[0];
+                popup_cdfb1158a9acafec73eb772c4114b3d4.setContent(i_frame_182565b8862a1c0e717a5495bb94a72e);
+            
+        
+
+        marker_9006370b5397bfc02af3a7e69c270c0f.bindPopup(popup_cdfb1158a9acafec73eb772c4114b3d4)
+        ;
+
+        
+    
+    
+            marker_9006370b5397bfc02af3a7e69c270c0f.bindTooltip(
+                `<div>
+                     Desmatamento de APP em Rio Casca (Município (Aprox.))
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
