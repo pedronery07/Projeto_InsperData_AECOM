@@ -62,7 +62,7 @@ def parse_georreferencia(georref_str):
 # --- Fim das funções de parsing de DMS ---
 
 # Carregar o arquivo Excel
-excel_file_path = 'docs/respostas_danos_ambientais_df_parte0.xlsx'
+excel_file_path = 'docs/respostas_danos_ambientais_df_completo.xlsx'
 try:
     df = pd.read_excel(excel_file_path)
 except FileNotFoundError:
