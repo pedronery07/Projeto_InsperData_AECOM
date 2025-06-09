@@ -2,6 +2,11 @@ import time
 from pydantic import BaseModel
 import os
 from google import genai
+import json
+
+class FailResponse:
+    def __init__(self, data: dict):
+        self.text = json.dumps(data)
 
 def verifica_dano_ambiental(texto):
     """
@@ -64,10 +69,15 @@ def verifica_dano_ambiental(texto):
             return resposta
         except Exception as e:
             # print(f"Erro com chave {chave}: {e}")
-            time.sleep(2)
+            time.sleep(5)
             continue
 
-    return "Erro: todas as tentativas de requisição falharam."
+    fallback_data = {
+        "isDanoAmbiental": False,
+        "justificativa": "Erro na classificação automática"
+    }
+
+    return FailResponse(fallback_data)
 
 def analisa_sentenca(texto_extraido):
     """
@@ -194,7 +204,12 @@ def analisa_sentenca(texto_extraido):
             return resposta
         except Exception as e:
             # print(f"Erro com chave {chave}: {e}")
-            time.sleep(2)
+            time.sleep(5)
             continue
+    
+    fallback_data = {
+        "isDanoAmbiental": False,
+        "justificativa": "Erro na classificação automática"
+    }
 
-    return "Erro: todas as tentativas de requisição falharam."
+    return FailResponse(fallback_data)
