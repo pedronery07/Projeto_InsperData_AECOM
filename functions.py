@@ -61,7 +61,7 @@ def verifica_dano_ambiental(texto):
         time.sleep(2)
         return response
 
-    chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3']
+    chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GEMINI_API_KEY_4', 'GEMINI_API_KEY_5']
 
     for chave in chaves:
         try:
@@ -196,7 +196,7 @@ def analisa_sentenca(texto_extraido):
         time.sleep(2)
         return response
 
-    chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3']
+    chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GEMINI_API_KEY_4', 'GEMINI_API_KEY_5']
 
     for chave in chaves:
         try:
@@ -208,8 +208,38 @@ def analisa_sentenca(texto_extraido):
             continue
     
     fallback_data = {
-        "isDanoAmbiental": False,
-        "justificativa": "Erro na classificação automática"
+        "numero_processo" : "Erro na classificação automática",
+        "georreferencia" : "Erro na classificação automática",
+        "uf" : "Erro na classificação automática",
+        "municipio" : "Erro na classificação automática",
+        "responsavel" : "Erro na classificação automática",
+        "categoria_responsavel" : "Erro na classificação automática",
+        "tipo_impacto" : "Erro na classificação automática",
+        "descricao_impacto" : "Erro na classificação automática",
+        "data_impacto" : "Erro na classificação automática",
+        "area_afetada" : "Erro na classificação automática",
+        "unidade_area" : "Erro na classificação automática",
+        "houve_compensacao" : "Erro na classificação automática",
+        "categoria_compensacao" : "Erro na classificação automática",
+        "tipo_multa" : "Erro na classificação automática",
+        "valor_multa" : "Erro na classificação automática",
+        "valor_multa_diaria" : "Erro na classificação automática"
     }
 
     return FailResponse(fallback_data)
+
+def divide_lista_em_partes(lista, num_partes):
+    if len(lista) % num_partes == 0:
+        # Dvisão exata
+        tamanho_parte = len(lista) // num_partes
+        partes = [lista[i:i + tamanho_parte] for i in range(0, len(lista), tamanho_parte)]
+    else:
+        # Coloca o resto na última parte
+        tamanho_parte = len(lista) // num_partes
+        partes = []
+        for i in range(0, num_partes):
+            if i == num_partes - 1:
+                partes.append(lista[i * tamanho_parte:])
+            else:
+                partes.append(lista[i * tamanho_parte:(i + 1) * tamanho_parte])
+    return partes
