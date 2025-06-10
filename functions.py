@@ -243,3 +243,43 @@ def divide_lista_em_partes(lista, num_partes):
             else:
                 partes.append(lista[i * tamanho_parte:(i + 1) * tamanho_parte])
     return partes
+
+def analisa_tipo(tipo_impacto, categorias_generalizadas):
+        prompt = f"""
+        SYSTEM: Você é um especialista em meio ambiente e direito ambiental. Sua tarefa é analisar os tipos de impacto ambiental listados abaixo e classificá-los 
+                em categorias mais amplas. Considere que cada tipo de impacto pode ser classificado em apenas uma categoria. Em caso de um valor NULL, também devolva NULL.
+
+                
+                CATEGORIAS GERAIS: {categorias_generalizadas}
+
+        USER: Aqui está o tipo de impacto na coluna: {tipo_impacto}   
+        """
+
+        class FormatoResposta(BaseModel):
+            categoria_generalizada: str
+
+        def requisicao_gemini(key):
+            client = genai.Client(api_key=os.getenv(key))
+            response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=prompt,
+                config={
+                    "response_mime_type": "application/json",
+                    'response_schema': FormatoResposta,
+                    'temperature': 1.0
+                    # 'max_output_tokens': 500,
+                }
+            )
+            time.sleep(2)
+            return response
+        
+        chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GEMINI_API_KEY_4']
+
+        for chave in chaves:
+            try:
+                resposta = requisicao_gemini(chave)
+                return resposta
+            except Exception as e:
+                # print(f"Erro com chave {chave}: {e}")
+                time.sleep(5)
+                continue
