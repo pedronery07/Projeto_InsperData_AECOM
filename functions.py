@@ -244,15 +244,34 @@ def divide_lista_em_partes(lista, num_partes):
                 partes.append(lista[i * tamanho_parte:(i + 1) * tamanho_parte])
     return partes
 
-def analisa_tipo(tipo_impacto, categorias_generalizadas):
+def analisa_tipo(tipo_impacto):
         prompt = f"""
-        SYSTEM: Você é um especialista em meio ambiente e direito ambiental. Sua tarefa é analisar os tipos de impacto ambiental listados abaixo e classificá-los 
-                em categorias mais amplas. Considere que cada tipo de impacto pode ser classificado em apenas uma categoria. Em caso de um valor NULL, também devolva NULL.
+        SYSTEM: Você é um especialista em meio ambiente e direito ambiental.
 
-                
-                CATEGORIAS GERAIS: {categorias_generalizadas}
+        INSTRUCTION: Sua tarefa é analisar o tipo de impacto específico fornecido e classificá-lo dentro de apenas uma das categorias generalizadas listadas a seguir. 
+        Considere que cada tipo de impacto pode ser classificado em apenas uma categoria. 
+        Em caso de um valor NULL, também devolva NULL. 
+        Em caso de um impacto específico idêntico a uma das categorias generalizadas, apenas devolva esta mesma categoria.
 
-        USER: Aqui está o tipo de impacto na coluna: {tipo_impacto}   
+        CATEGORIAS GERAIS: 
+        'Poluição Hídrica',
+        'Poluição do Solo',
+        'Poluição do Ar e Sonora',
+        'Desmatamento e Danos à Flora',
+        'Incêndios e Queimadas',
+        'Danos à Fauna',
+        'Gestão Inadequada de Resíduos',
+        'Ocupação e Construção Irregular',
+        'Erosão, Assoreamento e Impactos Geológicos',
+        'Extração Ilegal de Recursos Naturais',
+        'Falhas e Riscos de Infraestrutura',
+        'Impactos Sociais e à Saúde Pública',
+        'Danos ao Patrimônio e Bens Públicos',
+        'Infrações Administrativas e Legais',
+        'Derramamento de Petróleo',
+        'Dano Ambiental Genérico / Outros'
+
+        USER: Aqui está o tipo de impacto que você deve generalizar: {tipo_impacto}   
         """
 
         class FormatoResposta(BaseModel):
@@ -270,7 +289,7 @@ def analisa_tipo(tipo_impacto, categorias_generalizadas):
                     # 'max_output_tokens': 500,
                 }
             )
-            time.sleep(2)
+            time.sleep(1)
             return response
         
         chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GEMINI_API_KEY_4']
@@ -283,3 +302,9 @@ def analisa_tipo(tipo_impacto, categorias_generalizadas):
                 # print(f"Erro com chave {chave}: {e}")
                 time.sleep(5)
                 continue
+
+        fallback_data = {
+            "categoria_generalizada" : "Erro na classificação automática"
+        }
+
+        return FailResponse(fallback_data)
