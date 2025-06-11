@@ -1,0 +1,11 @@
+/*
+  Força a exibição do controle de escala do Mapbox, que pode estar
+  sendo escondido por outras regras de estilo.
+*/
+.mapboxgl-ctrl-scale {
+    display: block !important;
+    visibility: visible !important;
+    background-color: rgba(255, 255, 255, 0.75) !important; /* Adiciona um fundo branco semi-transparente */
+    padding: 0 5px !important;
+    border-radius: 3px !important;
+}
