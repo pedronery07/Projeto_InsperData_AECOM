@@ -4,16 +4,19 @@ import os
 from google import genai
 import json
 
+# Classe usada para retornar uma resposta padrão em caso de falha
 class FailResponse:
     def __init__(self, data: dict):
-        self.text = json.dumps(data)
+        self.text = json.dumps(data) # Converte o dicionário em uma string JSON
 
+# Função principal que verifica se o texto contém um dano ambiental
 def verifica_dano_ambiental(texto):
     """
     Função que verifica se o texto possui dano ambiental.
     Se houver, justifica a resposta. Caso contrário, responde "Não há dano ambiental".
     """
-    
+    # Prompt que será enviado ao modelo de linguagem para avaliação do texto
+
     prompt = f"""
     Você é um especialista em direito ambiental.
     Analise o texto abaixo e verifique exclusivamente se ele descreve um dano ao meio ambiente.
@@ -42,36 +45,42 @@ def verifica_dano_ambiental(texto):
     Texto: {texto}
     """
     
+    # Define o formato esperado da resposta vinda do modelo (como um esquema JSON)
     class FormatoResposta(BaseModel):
         isDanoAmbiental: bool
         justificativa: str
 
+    # Função auxiliar que faz a requisição para o modelo Gemini usando a chave especificada
     def requisicao_gemini(key):
         client = genai.Client(api_key=os.getenv(key))
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt,
+            model="gemini-2.0-flash", #modelo utilzado
+            contents=prompt, #prompt criado acima
             config={
-                "response_mime_type": "application/json",
-                'response_schema': FormatoResposta,
-                'temperature': 1.0
+                "response_mime_type": "application/json", # Formato da resposta esperada
+                'response_schema': FormatoResposta,       #Validação da estrutura da resposta
+                'temperature': 1.0                        #Grau de aleatoriedade da resposta
                 # 'max_output_tokens': 500,
             }
         )
         time.sleep(2)
         return response
 
+    # Lista de chaves para tentativa sequencial, caso alguma falhe
     chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GEMINI_API_KEY_4', 'GEMINI_API_KEY_5']
 
+    # Tenta usar cada chave para fazer a requisição até obter uma resposta válida
     for chave in chaves:
         try:
             resposta = requisicao_gemini(chave)
-            return resposta
+            return resposta # Se funcionar, retorna imediatamente
         except Exception as e:
+            # Se houver erro, espera um pouco e tenta com a próxima chave
             # print(f"Erro com chave {chave}: {e}")
             time.sleep(5)
             continue
 
+    # Se todas as tentativas falharem, retorna uma resposta padrão com erro
     fallback_data = {
         "isDanoAmbiental": False,
         "justificativa": "Erro na classificação automática"
@@ -84,7 +93,7 @@ def analisa_sentenca(texto_extraido):
     Função que extrai informações de um texto judicial relacionado a danos ambientais.
     O texto deve ser um texto bruto que descreve um processo judicial relacionado a algum dano ambiental.
     """
-    
+    # Cria um prompt longo e detalhado para instruir o modelo de IA sobre como extrair dados estruturados do texto judicial.
     prompt = f"""
         SYSTEM: Você é meu assistente especialista em análise e extração de elementos de textos judiciais. Você irá realizar extrações especificamente sobre
         danos socioambientais de diversos tipos, pensando em futuramente usar a tabela gerada para fazer uma modelagem preditiva de multas para danos socioambientais.
@@ -163,6 +172,8 @@ def analisa_sentenca(texto_extraido):
         {texto_extraido}
     """
     
+    # Define a estrutura esperada da resposta do modelo, usando o pydantic BaseModel.
+    # Isso permite validar e estruturar a resposta JSON automaticamente.
     class FormatoResposta2(BaseModel):
         numero_processo: str
         georreferencia: str
@@ -181,32 +192,36 @@ def analisa_sentenca(texto_extraido):
         valor_multa: float | str
         valor_multa_diaria: float | str
 
+    # Função auxiliar para enviar o prompt ao modelo Gemini via API.
     def requisicao_gemini(key):
         client = genai.Client(api_key=os.getenv(key))
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt,
+            model="gemini-2.0-flash", #modelo utilizado
+            contents=prompt, #prompt criado acima
             config={
-                "response_mime_type": "application/json",
-                'response_schema': FormatoResposta2,
-                'temperature': 1.0
+                "response_mime_type": "application/json", # Formato da resposta esperada
+                'response_schema': FormatoResposta2,       # Validação da estrutura da resposta
+                'temperature': 1.0    ,                        # Grau de aleatoriedade da resposta
                 # 'max_output_tokens': 500,
             }
         )
         time.sleep(2)
         return response
 
+    # Lista de chaves de API a serem testadas em sequência caso ocorram erros (como limites de uso).
     chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GEMINI_API_KEY_4', 'GEMINI_API_KEY_5']
-
+    # Tenta usar cada chave até obter uma resposta válida ou esgotar todas as opções.
     for chave in chaves:
         try:
             resposta = requisicao_gemini(chave)
-            return resposta
+            return resposta # Retorna a primeira resposta válida recebida
         except Exception as e:
+            # Se ocorrer um erro, espera um pouco e tenta com a próxima chave
             # print(f"Erro com chave {chave}: {e}")
             time.sleep(5)
             continue
     
+     # Caso todas as requisições falhem, retorna uma resposta padrão indicando erro em todos os campos.
     fallback_data = {
         "numero_processo" : "Erro na classificação automática",
         "georreferencia" : "Erro na classificação automática",
@@ -229,18 +244,23 @@ def analisa_sentenca(texto_extraido):
     return FailResponse(fallback_data)
 
 def divide_lista_em_partes(lista, num_partes):
+    # Divisão exata: a lista pode ser dividida igualmente sem sobras.
     if len(lista) % num_partes == 0:
         # Dvisão exata
         tamanho_parte = len(lista) // num_partes
+        # Cria uma lista de sublistas (partes) com tamanho igual.
         partes = [lista[i:i + tamanho_parte] for i in range(0, len(lista), tamanho_parte)]
     else:
+        # Divisão com sobra: o tamanho da lista não é múltiplo do número de partes.
         # Coloca o resto na última parte
         tamanho_parte = len(lista) // num_partes
         partes = []
         for i in range(0, num_partes):
             if i == num_partes - 1:
+                # A última parte recebe todos os elementos restantes.
                 partes.append(lista[i * tamanho_parte:])
             else:
+                # As partes anteriores recebem exatamente tamanho_parte elementos.
                 partes.append(lista[i * tamanho_parte:(i + 1) * tamanho_parte])
     return partes
 
@@ -280,25 +300,28 @@ def analisa_tipo(tipo_impacto):
         def requisicao_gemini(key):
             client = genai.Client(api_key=os.getenv(key))
             response = client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=prompt,
+                model="gemini-2.0-flash", # modelo utilizado
+                contents=prompt, # prompt criado acima
                 config={
-                    "response_mime_type": "application/json",
-                    'response_schema': FormatoResposta,
-                    'temperature': 1.0
+                    "response_mime_type": "application/json", # Formato da resposta esperada
+                    'response_schema': FormatoResposta,  # Validação da estrutura da resposta
+                    'temperature': 1.0 # Grau de aleatoriedade da resposta
                     # 'max_output_tokens': 500,
                 }
             )
             time.sleep(1)
             return response
         
+        # Lista de chaves de API a serem testadas em sequência caso ocorram erros (como limites de uso).
         chaves = ['GEMINI_API_KEY', 'GEMINI_API_KEY_2', 'GEMINI_API_KEY_3', 'GEMINI_API_KEY_4']
 
+        # Tenta usar cada chave até obter uma resposta válida ou esgotar todas as opções.
         for chave in chaves:
             try:
-                resposta = requisicao_gemini(chave)
-                return resposta
+                resposta = requisicao_gemini(chave) # Retorna a primeira resposta válida recebida
+                return resposta 
             except Exception as e:
+                # Se ocorrer um erro, espera um pouco e tenta com a próxima chave
                 # print(f"Erro com chave {chave}: {e}")
                 time.sleep(5)
                 continue
