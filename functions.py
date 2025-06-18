@@ -58,8 +58,8 @@ def verifica_dano_ambiental(texto):
             contents=prompt, #prompt criado acima
             config={
                 "response_mime_type": "application/json", # Formato da resposta esperada
-                'response_schema': FormatoResposta,       #Validação da estrutura da resposta
-                'temperature': 1.0                        #Grau de aleatoriedade da resposta
+                'response_schema': FormatoResposta,       # Validação da estrutura da resposta
+                'temperature': 1.0                        # Grau de aleatoriedade da resposta
                 # 'max_output_tokens': 500,
             }
         )
@@ -196,8 +196,8 @@ def analisa_sentenca(texto_extraido):
     def requisicao_gemini(key):
         client = genai.Client(api_key=os.getenv(key))
         response = client.models.generate_content(
-            model="gemini-2.0-flash", #modelo utilizado
-            contents=prompt, #prompt criado acima
+            model="gemini-2.0-flash", # modelo utilizado
+            contents=prompt, # prompt criado acima
             config={
                 "response_mime_type": "application/json", # Formato da resposta esperada
                 'response_schema': FormatoResposta2,       # Validação da estrutura da resposta
@@ -221,7 +221,7 @@ def analisa_sentenca(texto_extraido):
             time.sleep(5)
             continue
     
-     # Caso todas as requisições falhem, retorna uma resposta padrão indicando erro em todos os campos.
+    # Caso todas as requisições falhem, retorna uma resposta padrão indicando erro em todos os campos.
     fallback_data = {
         "numero_processo" : "Erro na classificação automática",
         "georreferencia" : "Erro na classificação automática",
@@ -265,6 +265,7 @@ def divide_lista_em_partes(lista, num_partes):
     return partes
 
 def analisa_tipo(tipo_impacto):
+        # Prompt que será enviado ao modelo de linguagem para categorização do tipo de impacto ambiental.
         prompt = f"""
         SYSTEM: Você é um especialista em meio ambiente e direito ambiental.
 
@@ -294,6 +295,7 @@ def analisa_tipo(tipo_impacto):
         USER: Aqui está o tipo de impacto que você deve generalizar: {tipo_impacto}   
         """
 
+        # Define a estrutura esperada da resposta do modelo, usando o pydantic BaseModel.
         class FormatoResposta(BaseModel):
             categoria_generalizada: str
 
@@ -326,6 +328,7 @@ def analisa_tipo(tipo_impacto):
                 time.sleep(5)
                 continue
 
+        # Caso todas as requisições falhem, retorna uma resposta padrão indicando erro.
         fallback_data = {
             "categoria_generalizada" : "Erro na classificação automática"
         }
